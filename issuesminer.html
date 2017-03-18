@@ -8,13 +8,26 @@
     <script type="application/javascript">
         $(document).ready(function() {
 
-            var $project_name = 'laravel';
+            var $project_name = 'react';
             var base = 'http://localhost:8000/';
-            var _prs_from_issues_loader_url = 'issues/prs/load?project_name='+$project_name
+            var loader = 'issues/load?';
+            var _prs_from_issues_loader_url = 'issues/prs/load?project_name='+$project_name;
 //            var _issues_url = 'issues/prs/load?project_name=laravel'
 
-            loadIssuesMiner();
 
+            function getTheURL(url) {
+                if(url === '')
+                {
+                    return 'issues/load/' +
+                            '?project_name=laravel' +
+                            '&state=closed&sort=created' +
+                            '&direction=asc' +
+                            '&since=2000-01-01T00:00:01Z' +
+                            '&per_page=100&page=2'
+                }
+
+                return url;
+            }
 
 
 
@@ -44,13 +57,56 @@
                  }, 1000);
              }
 
+            $('#issueLoader').on('click', function () {
+                var theUrl = base + loader +
+                        'project_name=laravel' +
+                        '&state=closed&sort=created' +
+                        '&direction=asc' +
+                        '&since=2000-01-01T00:00:01Z' +
+                        '&per_page=100&page=2';
+                loadIssuesLoader(theUrl);
+            });
+
+            $('#prsFromIssuesLoader').on('click', function () {
+                var _i_url = base+_prs_from_issues_loader_url;
+                loadPrsFromIssuesMiner(_i_url);
+            });
+
+
+            function loadIssuesLoader(_url) {
+                $.ajax({
+                    url: _url,
+                    method: 'GET',
+                    dataType: 'json',
+//                data: formData,
+                    success: function (data) {
+                        if (data.status === 'success') {
+                            if (data.next !== '') {
+                                    setTimeout(function(){
+                                    loadIssuesLoader(base+loader+data.params);
+                                },70000);  //after 70 seconds
+
+                                $('h1').text(data.message);
+                                $('h2').text(data.extra);
+                                console.log(data.params);
+                            }
+//                            $('h1').text(data.message);
+//                            $('h2').text(data.extra);
+//                            console.log(data);
+                        }
+                    },
+                    error: function (data) {
+                        /*console.log('Noo');*/
+                        $('h1').text(data.message);
+                        $('h2').text(data.extra);
+                        console.log(data);
+                    }
+                });
+                }
 
 
 
-
-
-
-            function loadIssuesMiner() {
+            function loadPrsFromIssuesMiner() {
                 $.ajax({
                     url: base+_prs_from_issues_loader_url,
                     method: 'GET',
@@ -61,7 +117,7 @@
                         {
                             if(data.extra !== 'covered' ){
                                 setTimeout(function(){
-                                    loadIssuesMiner();
+                                    loadPrsFromIssuesMiner();
                                 },70000);  //after 70 seconds
                              /*   $('h1').text(data.message);
                                 $('h2').text(data.extra);*/
@@ -98,5 +154,10 @@
 <h2>Other status: here!</h2>
 <hr>
 <hr>
+
+<div>
+    <button type="button" id="issueLoader">Load Issues</button>
+    <button type="button" id="prsFromIssuesLoader">Load PRS from Issues</button>
+</div>
 </body>
 </html>
