@@ -23,10 +23,11 @@
         </div>
         <div class="row" style="background: #c6c9ff">
             <form class="form-inline">
-                <div class="form-group row">
-                    <label for="project_name">Project_URL</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control" placeholder="Project's Url">
-                    <input type="button" name="load_project" value="Add" class="btn btn-info">
+                <div class="form-group-lg">
+                    <label for="project_src">Project_URL</label>
+                    <input type="text" name="project_name" id="project_src" class="form-control" placeholder="Project's Url"
+                    value="https://api.github.com/repos/jquery/jquery" style="width: 800px">
+                    <input type="button" name="load_project" value="Add" id="project_add" class="btn btn-info">
                 </div>
             </form>
         </div>
@@ -43,6 +44,7 @@
             <table id="status_table" class="table table-bordered">
                 <thead>
                     <tr>
+                        <td>S/N</td>
                         <td>Message</td>
                         <td>Extra</td>
                     </tr>
@@ -59,7 +61,16 @@
             <hr>
             <hr>
         </div>
-        <div class="row" style="background: #c6c9ff">
+        <div class="row" style="background: #c6c9ff" id="loaders">
+            <div>
+                <div class="form-group-lg">
+                    <label for="project_name">Project Name</label>
+                    <input type="text" name="project_name" id="project_name" class="form-control" value="bitcoin">
+                    <label for="project_labels">Labels</label>
+                    <input type="text" name="project_name" id="project_labels" class="form-control"
+                           value="Bug">
+                </div>
+            </div>
             <div>
                 <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
                 <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>

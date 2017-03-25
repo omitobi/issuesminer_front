@@ -3,8 +3,9 @@
  */
 $(document).ready(function() {
 
-    var project_name = "bitcoin";
-    var project_label = 'Bug';
+    var incr = 0;
+    var project_name = $('#project_name').val();
+    var project_label = $('#project_labels').val();
     var base = 'http://localhost:8001/';
     var _project_route = 'projects';
     var _issues_route = 'issues/load';
@@ -15,48 +16,59 @@ $(document).ready(function() {
 //            var _issues_url = 'issues/prs/load?project_name=laravel'
 
 
-    function getTheURL(url) {
-        if(url === '')
-        {
-            return 'issues/load/' +
-                '?project_name=laravel' +
-                '&state=closed&sort=created' +
-                '&direction=asc' +
-                '&since=2000-01-01T00:00:01Z' +
-                '&per_page=100&page=2'
-        }
+    var  newfullissuesUrl = theUrl = base + _issues_route +'?project_name='+project_name+
+        '&state=closed&sort=created' +
+        '&direction=asc' +
+        '&per_page=100&labels='+project_label;
+    function setFullIssuesUrl(url) {
+
+        newfullissuesUrl = url;
 
         return url;
     }
 
+    function setLabelsAndName() {
+        project_name = $('#project_name').val();
+        project_label = $('#project_labels').val();
+    }
     $('#issueLoader').on('click', function () {
+        setLabelsAndName();
         var theUrl = base + _issues_route +'?project_name='+project_name+
-            '&state=closed&sort=created' +
+            '&since=2016-03-24' +
+            '&until=2017-03-25' +
+            '&state=closed' +
+            '&sort=created' +
             '&direction=asc' +
             '&per_page=100&labels='+project_label;
+
         loadIssuesLoader(theUrl);
+
     });
 
     $('#prsFromIssuesLoader').on('click', function () {
+        setLabelsAndName();
         var _i_url = base+_prs_from_issues_loader_url+'?project_name='+project_name;
         load_(_i_url);
     });
 
     $('#commitsLoader').on('click', function () {
+        setLabelsAndName();
         var _i_url = base+_commits_route+'?project_name='+project_name;
         load_(_i_url);
     });
 
     $('#commitsFilesLoader').on('click', function () {
+        setLabelsAndName();
         var _i_url = base+_files_changes_route+'?project_name='+project_name;
         load_(_i_url);
     });
 
     $('#allCommitsLoader').on('click', function () {
+        setLabelsAndName();
         var theUrl = base + _all_commmits_route +'?project_name='+project_name+
             '&since=2016-03-24' +
             '&until=2017-03-25' +
-            '&per_page=100&page=5';
+            '&per_page=100';
         loadIssuesLoader(theUrl);
 
     });
@@ -97,12 +109,13 @@ $(document).ready(function() {
             success: function (data) {
                 if (data.status === 'success') {
                     if (data.extra != 'covered') {
-                        var $max_time = 70000;
+                        incr++;
 
+                        var $max_time = 70000;
                         var timToWait = $max_time/1000,
                             display = $('#timer');
-                        startTimer(timToWait, display);
 
+                        startTimer(timToWait, display);
                         setTimeout(function(){
                             loadIssuesLoader(
                                 base+
@@ -115,6 +128,9 @@ $(document).ready(function() {
                         $('#status_table').find('tbody').append(
                             "<tr> " +
                                 " <td> " +
+                                incr +
+                                "</td>" +
+                                " <td> " +
                                 data.message +
                                 "</td>" +
                                 " <td> " +
@@ -125,14 +141,18 @@ $(document).ready(function() {
 
                         console.log(data.params);
                     } else {
+                        incr++;
                         $('#status_table').find('tbody').append(
                             "<tr> " +
-                            " <td> " +
-                            data.message +
-                            "</td>" +
-                            " <td> " +
-                            data.extra +
-                            "</td>" +
+                                " <td> " +
+                                incr +
+                                "</td>" +
+                                " <td> " +
+                                data.message +
+                                "</td>" +
+                                " <td> " +
+                                data.extra +
+                                "</td>" +
                             "</tr>");
                     }
 //                            $('h1').text(data.message);
@@ -211,6 +231,42 @@ $(document).ready(function() {
     }
 
 
+    $('#project_add').on('click', function () {
+        var param = { url : $('#project_src').val()};
+        var url = base+_project_route;
+
+        addProject(url, param);
+    });
+
+    function addProject(_url, param)
+    {
+        $.ajax({
+            url: _url,
+            method: 'POST',
+            dataType: 'json',
+               data: param,
+            success: function (data) {
+                if(data.status === 'success')
+                {
+                    console.log(data);
+                    alert(data.message);
+                    // $('h1').text(data.message);
+                    // $('h2').text(data.extra);
+
+
+                }else {
+                    console.log(data);
+                    alert(data.message);
+                }
+            },
+            error: function (data) {
+                // $('h1').text(data.message);
+                // $('h2').text(data.extra);
+                alert(data.message);
+                console.log(data);
+            }
+        });
+    }
 
 
 });
