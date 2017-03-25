@@ -3,161 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <script type="application/javascript">
-        $(document).ready(function() {
-
-            var $project_name = 'react';
-            var base = 'http://localhost:8000/';
-            var loader = 'issues/load?';
-            var _prs_from_issues_loader_url = 'issues/prs/load?project_name='+$project_name;
-//            var _issues_url = 'issues/prs/load?project_name=laravel'
-
-
-            function getTheURL(url) {
-                if(url === '')
-                {
-                    return 'issues/load/' +
-                            '?project_name=laravel' +
-                            '&state=closed&sort=created' +
-                            '&direction=asc' +
-                            '&since=2000-01-01T00:00:01Z' +
-                            '&per_page=100&page=2'
-                }
-
-                return url;
-            }
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
 
 
 
-            function delayThis() {
-                var timerId = 0;
-                 var ctr = 0;
-                 var max = 3;
-                 var perc = 1;
-
-                 timerId = setInterval(function () {
-                     // interval function
-                     ctr++;
-                     perc = (ctr / max) * 100;
-
-                     // max reached?
-                     if (perc >= max + 100) {
-                         //clearInterval(timerId);
-                         var fpage = window.location.href;
-                         alert(fpage);
-                         var page = fpage.slice(0, -6);
-                         alert(page);
-                         //window.location.href = page;
-                         //window.location.assign(page);
-                         location.replace(page);
-                     }
-
-                 }, 1000);
-             }
-
-            $('#issueLoader').on('click', function () {
-                var theUrl = base + loader +
-                        'project_name=laravel' +
-                        '&state=closed&sort=created' +
-                        '&direction=asc' +
-                        '&since=2000-01-01T00:00:01Z' +
-                        '&per_page=100&page=2';
-                loadIssuesLoader(theUrl);
-            });
-
-            $('#prsFromIssuesLoader').on('click', function () {
-                var _i_url = base+_prs_from_issues_loader_url;
-                loadPrsFromIssuesMiner(_i_url);
-            });
-
-
-            function loadIssuesLoader(_url) {
-                $.ajax({
-                    url: _url,
-                    method: 'GET',
-                    dataType: 'json',
-//                data: formData,
-                    success: function (data) {
-                        if (data.status === 'success') {
-                            if (data.next !== '') {
-                                    setTimeout(function(){
-                                    loadIssuesLoader(base+loader+data.params);
-                                },70000);  //after 70 seconds
-
-                                $('h1').text(data.message);
-                                $('h2').text(data.extra);
-                                console.log(data.params);
-                            }
-//                            $('h1').text(data.message);
-//                            $('h2').text(data.extra);
-//                            console.log(data);
-                        }
-                    },
-                    error: function (data) {
-                        /*console.log('Noo');*/
-                        $('h1').text(data.message);
-                        $('h2').text(data.extra);
-                        console.log(data);
-                    }
-                });
-                }
-
-
-
-            function loadPrsFromIssuesMiner() {
-                $.ajax({
-                    url: base+_prs_from_issues_loader_url,
-                    method: 'GET',
-                    dataType: 'json',
-//                data: formData,
-                    success: function (data) {
-                        if(data.status === 'success')
-                        {
-                            if(data.extra !== 'covered' ){
-                                setTimeout(function(){
-                                    loadPrsFromIssuesMiner();
-                                },70000);  //after 70 seconds
-                             /*   $('h1').text(data.message);
-                                $('h2').text(data.extra);*/
-                                console.log(data);
-                            }
-                            $('h1').text(data.message);
-                            $('h2').text(data.extra);
-                            console.log(data);
-                        }
-                    },
-                    error: function (data) {
-                        $('h1').text(data.message);
-                        $('h2').text(data.extra);
-                        console.log(data);
-                    }
-                });
-            }
-
-
-        });
-
-    </script>
 
 </head>
 <body>
 
-<h3>The status: </h3>
-<hr>
-<h1>Status: here!</h1>
-<hr>
-<hr>
-<h3>The extra: </h3>
-<hr>
-<h2>Other status: here!</h2>
-<hr>
-<hr>
+    <div class="container">
 
-<div>
-    <button type="button" id="issueLoader">Load Issues</button>
-    <button type="button" id="prsFromIssuesLoader">Load PRS from Issues</button>
-</div>
+        <div class="row" id="head-set" style="background: #1b6d85">
+            <br>
+            <br>
+        </div>
+        <div class="row" style="background: #c6c9ff">
+            <form class="form-inline">
+                <div class="form-group row">
+                    <label for="project_name">Project_URL</label>
+                    <input type="text" name="project_name" id="project_name" class="form-control" placeholder="Project's Url">
+                    <input type="button" name="load_project" value="Add" class="btn btn-info">
+                </div>
+            </form>
+        </div>
+        <div class="row">
+
+            <h3>The status: </h3>
+            <div>
+                Time count left:
+                <h6 id="timer">
+                </h6>
+            </div>
+            <hr>
+            <h1>Status: here!</h1>
+            <table id="status_table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Message</td>
+                        <td>Extra</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <hr>
+            <hr>
+            <h3>The extra: </h3>
+            <hr>
+            <h2>Other status: here!</h2>
+            <hr>
+            <hr>
+        </div>
+        <div class="row" style="background: #c6c9ff">
+            <div>
+                <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
+                <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>
+                <button type="button" id="commitsLoader" class="btn btn-default">Load Commits from PRS</button>
+                <button type="button" id="commitsFilesLoader" class="btn btn-default">Load files from Commits</button>
+                <button type="button" id="tester" class="btn btn-default">Tester</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="application/javascript" src="js/js.js"> </script>
+<script type="application/javascript" src="js/bootstrap.min.js"> </script>
+
 </html>
