@@ -4,17 +4,26 @@
 $(document).ready(function() {
 
     var incr = 0;
-    var project_name = $('#project_name').val();
-    var project_label = $('#project_labels').val();
 
+
+    var project_name = $('#project_name').val();
+
+    var project_label = $('#project_labels').val();
     var base = $('#server_base').val();
 
     var _project_route = $('#project_route').val();
+
     var _issues_route = $('#issue_route').val();
     var _prs_from_issues_loader_url = $('#prs_route');
     var _commits_route = $('#prs_commit_route').val();
     var _files_changes_route = $('#files_route').val();
     var _all_commmits_route = $('#all_commits_route').val();
+
+    //Loading all projects first
+    loadProjects();
+    //Done!
+
+
 //            var _issues_url = 'issues/prs/load?project_name=laravel'
 
 
@@ -102,7 +111,6 @@ $(document).ready(function() {
     });
 
     function loadIssuesLoader(_url) {
-
         $.ajax({
             url: _url,
             method: 'GET',
@@ -199,6 +207,9 @@ $(document).ready(function() {
                         $('#status_table').find('tbody').append(
                             "<tr> " +
                             " <td> " +
+                            incr +
+                            "</td>" +
+                            " <td> " +
                             data.message +
                             "</td>" +
                             " <td> " +
@@ -210,6 +221,9 @@ $(document).ready(function() {
                     } else {
                         $('#status_table').find('tbody').append(
                             "<tr> " +
+                            " <td> " +
+                            incr +
+                            "</td>" +
                             " <td> " +
                             data.message +
                             "</td>" +
@@ -270,5 +284,41 @@ $(document).ready(function() {
         });
     }
 
+    function loadProjects()
+    {
 
+        $.ajax({
+            url: base+_project_route+"?by=name",
+            method: 'GET',
+            dataType: 'json',
+            // data: param,
+            success: function (data) {
+                if(data.status === 'success')
+                {
+                    console.log(data);
+                    data.params.forEach( function (project, key) {
+                        $('#project_name').append(
+                          "<option value='"+project+"'>" +
+                          project +
+                          "</option>"
+                        );
+                    });
+                    // alert(data.message);
+                    // $('h1').text(data.message);
+                    // $('h2').text(data.extra);
+
+
+                }else {
+                    console.log(data);
+                    alert(data.message);
+                }
+            },
+            error: function (data) {
+                // $('h1').text(data.message);
+                // $('h2').text(data.extra);
+                alert(data.message);
+                console.log(data);
+            }
+        });
+    }
 });

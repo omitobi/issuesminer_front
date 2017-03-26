@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <!--<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
 
 
@@ -25,7 +25,7 @@
             <form class="form-inline">
                 <div class="form-group-lg">
                     <label for="project_src">Project_URL</label>
-                    <input type="text" name="project_name" id="project_src" class="form-control" placeholder="Project's Url"
+                    <input type="text" name="project_src" id="project_src" class="form-control" placeholder="Project's Url"
                     value="https://api.github.com/repos/jquery/jquery" style="width: 800px">
                     <input type="button" name="load_project" value="Add" id="project_add" class="btn btn-info">
                 </div>
@@ -66,12 +66,16 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <label for="server_base">Server Base</label>
-                        <input type="text" name="project_name" id="server_base" class="form-control"
+                        <input type="text" name="server_base" id="server_base" class="form-control"
                                value="http://localhost:8001/">
                         <label for="project_name">Project Name</label>
-                        <input type="text" name="project_name" id="project_name" class="form-control" value="bitcoin">
+                        <!--<input type="text" name="project_name" id="project_name" class="form-control" value="bitcoin">-->
+
+                        <select id="project_name">
+
+                        </select>
                         <label for="project_labels">Labels</label>
-                        <input type="text" name="project_name" id="project_labels" class="form-control"
+                        <input type="text" name="project_labels" id="project_labels" class="form-control"
                                value="Bug">
                     </div>
                 </div>
