@@ -14,7 +14,7 @@ $(document).ready(function() {
     var _prs_from_issues_loader_url = $('#prs_route');
     var _commits_route = $('#prs_commit_route').val();
     var _files_changes_route = $('#files_route').val();
-    var _all_commmits_route = $('#all_commits_route');
+    var _all_commmits_route = $('#all_commits_route').val();
 //            var _issues_url = 'issues/prs/load?project_name=laravel'
 
 
