@@ -63,26 +63,72 @@
         </div>
         <div class="row" style="background: #c6c9ff" id="loaders">
             <div>
-                <div class="form-group-lg">
-                    <label for="project_name">Project Name</label>
-                    <input type="text" name="project_name" id="project_name" class="form-control" value="bitcoin">
-                    <label for="project_labels">Labels</label>
-                    <input type="text" name="project_name" id="project_labels" class="form-control"
-                           value="Bug">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="server_base">Server Base</label>
+                        <input type="text" name="project_name" id="server_base" class="form-control"
+                               value="http://localhost:8001/">
+                        <label for="project_name">Project Name</label>
+                        <input type="text" name="project_name" id="project_name" class="form-control" value="bitcoin">
+                        <label for="project_labels">Labels</label>
+                        <input type="text" name="project_name" id="project_labels" class="form-control"
+                               value="Bug">
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
-                <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>
-                <button type="button" id="commitsLoader" class="btn btn-default">Load Commits from PRS</button>
-                <button type="button" id="commitsFilesLoader" class="btn btn-default">Load files from Commits</button>
-                <button type="button" id="tester" class="btn btn-default">Tester</button>
-            </div>
-        </div>
 
-        <div class="row">
-            <div>
-                <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
+
+                <div style="width: 300px;">
+                    <div class="form-group">
+                        <label for="project_route">Project</label>
+                        <input type="text" name="project_route" id="project_route" class="form-control"
+                               value="projects">
+                        <label for="issue_route">Issue</label>
+                        <input type="text" name="issue_route" id="issue_route" class="form-control"
+                               value="issues/load">
+                        <label for="prs_route">PRS</label>
+                        <input type="text" name="prs_route" id="prs_route" class="form-control"
+                               value="issues/prs/load">
+                        <label for="prs_commit_route">Commit (PRS)</label>
+                        <input type="text" name="prs_commit_route" id="prs_commit_route" class="form-control"
+                               value="prs/commits/load">
+                        <label for="files_route">Files (Commit) </label>
+                        <input type="text" name="files_route" id="files_route" class="form-control"
+                               value="commits/files/load">
+                        <label for="all_commits_route">All Commits </label>
+                        <input type="text" name="all_commits_route" id="all_commits_route" class="form-control"
+                               value="commits">
+                    </div>
+                </div>
+
+
+
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
+                            </td>
+                            <td>
+                                <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>
+                            </td>
+                            <td>
+                                <button type="button" id="commitsLoader" class="btn btn-default">Load Commits from PRS</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <button type="button" id="commitsFilesLoader" class="btn btn-default">Load files from Commits</button>
+                            </td>
+                            <td>
+                                <button type="button" id="tester" class="btn btn-default">Tester</button>
+                            </td>
+                            <td>
+                                <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

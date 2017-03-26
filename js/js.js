@@ -6,13 +6,15 @@ $(document).ready(function() {
     var incr = 0;
     var project_name = $('#project_name').val();
     var project_label = $('#project_labels').val();
-    var base = 'http://localhost:8001/';
-    var _project_route = 'projects';
-    var _issues_route = 'issues/load';
-    var _commits_route = 'prs/commits/load';
-    var _files_changes_route = 'commits/files/load';
-    var _prs_from_issues_loader_url = 'issues/prs/load';
-    var _all_commmits_route = 'commits';
+
+    var base = $('#server_base').val();
+
+    var _project_route = $('#project_route').val();
+    var _issues_route = $('#issue_route').val();
+    var _prs_from_issues_loader_url = $('#prs_route');
+    var _commits_route = $('#prs_commit_route').val();
+    var _files_changes_route = $('#files_route').val();
+    var _all_commmits_route = $('#all_commits_route');
 //            var _issues_url = 'issues/prs/load?project_name=laravel'
 
 
