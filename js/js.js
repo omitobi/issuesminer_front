@@ -19,6 +19,11 @@ $(document).ready(function() {
     var _files_changes_route = $('#files_route').val();
     var _all_commmits_route = $('#all_commits_route').val();
 
+    function next_page()  {
+        return ($('#start_page').val() != 0) ?
+        "&page="+$('#start_page').val() : "";
+    }
+
     //Loading all projects first
     loadProjects();
     //Done!
@@ -79,7 +84,7 @@ $(document).ready(function() {
         var theUrl = base + _all_commmits_route +'?project_name='+project_name+
             '&since=2016-03-24' +
             '&until=2017-03-25' +
-            '&per_page=100';
+            '&per_page=100'+next_page();
         loadIssuesLoader(theUrl);
 
     });
