@@ -14,7 +14,7 @@ $(document).ready(function() {
     var _project_route = $('#project_route').val();
 
     var _issues_route = $('#issue_route').val();
-    var _prs_from_issues_loader_url = $('#prs_route');
+    var _prs_from_issues_loader_url = $('#prs_route').val();
     var _commits_route = $('#prs_commit_route').val();
     var _files_changes_route = $('#files_route').val();
     var _all_commmits_route = $('#all_commits_route').val();
@@ -36,6 +36,7 @@ $(document).ready(function() {
         '&state=closed&sort=created' +
         '&direction=asc' +
         '&per_page=100&labels='+project_label;
+
     function setFullIssuesUrl(url) {
 
         newfullissuesUrl = url;
@@ -47,11 +48,26 @@ $(document).ready(function() {
         project_name = $('#project_name').val();
         project_label = $('#project_labels').val();
     }
+
+    function setAllFields() {
+        project_name = $('#project_name').val();
+
+        project_label = $('#project_labels').val();
+        base = $('#server_base').val();
+
+        _project_route = $('#project_route').val();
+
+        _issues_route = $('#issue_route').val();
+        _prs_from_issues_loader_url = $('#prs_route').val();
+        _commits_route = $('#prs_commit_route').val();
+        _files_changes_route = $('#files_route').val();
+        _all_commmits_route = $('#all_commits_route').val();
+    }
     $('#issueLoader').on('click', function () {
         setLabelsAndName();
         var theUrl = base + _issues_route +'?project_name='+project_name+
-            '&since=2016-03-24' +
-            '&until=2017-03-25' +
+            // '&since=2016-03-24' +
+            // '&until=2017-03-25' +
             '&state=closed' +
             '&sort=created' +
             '&direction=asc' +
@@ -82,8 +98,10 @@ $(document).ready(function() {
     $('#allCommitsLoader').on('click', function () {
         setLabelsAndName();
         var theUrl = base + _all_commmits_route +'?project_name='+project_name+
-            '&since=2016-03-24' +
-            '&until=2017-03-25' +
+            // '&since=2016-03-24' +
+            // '&until=2017-03-25' +
+            '&sort=created' +
+            '&direction=asc' +
             '&per_page=100'+next_page();
         loadIssuesLoader(theUrl);
 
@@ -107,13 +125,13 @@ $(document).ready(function() {
     }
 
 
-    $('#tester').on('click', function () {
+  /*  $('#tester').on('click', function () {
         var max = 70;
         var timToWait = 70,
             display = $('#timer');
         startTimer(timToWait, display);
 
-    });
+    });*/
 
     function loadIssuesLoader(_url) {
         $.ajax({
@@ -126,7 +144,7 @@ $(document).ready(function() {
                     if (data.extra != 'covered') {
                         incr++;
 
-                        var $max_time = 70000;
+                        var $max_time = $('#time_to_wait').val()*1000;
                         var timToWait = $max_time/1000,
                             display = $('#timer');
 
@@ -199,7 +217,7 @@ $(document).ready(function() {
                 {
                     if(data.extra != 'covered' ){
 
-                        var $max_time = 70000;
+                        $max_time = $('#time_to_wait').val()*1000;
 
                         var timToWait = $max_time/1000,
                             display = $('#timer');
