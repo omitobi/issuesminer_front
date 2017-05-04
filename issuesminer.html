@@ -62,8 +62,8 @@
             <hr>
         </div>
         <div class="row" style="background: #c6c9ff" id="loaders">
-            <div>
-                <div class="form-inline">
+
+                <div class="form-inline col-md-3">
                     <div class="form-group">
                         <label for="server_base">Server Base</label>
                         <input type="text" name="server_base" id="server_base" class="form-control"
@@ -87,60 +87,111 @@
                 </div>
 
 
-                <div style="width: 300px;">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="project_route">Project</label>
                         <input type="text" name="project_route" id="project_route" class="form-control"
                                value="projects">
+
                         <label for="issue_route">Issue</label>
                         <input type="text" name="issue_route" id="issue_route" class="form-control"
                                value="issues/load">
+
                         <label for="prs_route">PRS</label>
                         <input type="text" name="prs_route" id="prs_route" class="form-control"
                                value="issues/prs/load">
+
                         <label for="prs_commit_route">Commit (PRS)</label>
                         <input type="text" name="prs_commit_route" id="prs_commit_route" class="form-control"
                                value="prs/commits/load">
-                        <label for="files_route">Files (Commit) </label>
-                        <input type="text" name="files_route" id="files_route" class="form-control"
-                               value="commits/files/load">
-                        <label for="all_commits_route">All Commits </label>
-                        <input type="text" name="all_commits_route" id="all_commits_route" class="form-control"
-                               value="commits">
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="files_route">Files (Commit) </label>
+                        <input type="text" name="files_route" id="files_route" class="form-control"
+                               value="commits/files/load">
 
+                        <label for="all_commits_route">All Commits </label>
+                        <input type="text" name="all_commits_route" id="all_commits_route" class="form-control"
+                               value="commits">
 
-                <div>
-                    <table>
-                        <tr>
-                            <td>
-                                <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
-                            </td>
-                            <td>
-                                <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>
-                            </td>
-                            <td>
-                                <button type="button" id="commitsLoader" class="btn btn-default">Load Commits from PRS</button>
-                            </td>
-                        </tr>
+                        <label for="all_modules_route">All Modules </label>
+                        <input type="text" name="all_modules_route" id="all_modules_route" class="form-control"
+                               value="vcs/modules">
 
-                        <tr>
-                            <td>
-                                <button type="button" id="commitsFilesLoader" class="btn btn-default">Load files from Commits</button>
-                            </td>
-                            <td>
-                                <button type="button" id="tester" class="btn btn-default">Tester</button>
-                            </td>
-                            <td>
-                                <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
-                            </td>
-                        </tr>
-                    </table>
+                        <label for="all_estimations_route">All Estimations </label>
+                        <input type="text" name="all_estimations_route" id="all_estimations_route" class="form-control"
+                               value="vcs/estimations">
+                    </div>
+                </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="all_vcs_filerevisions_routes">VCS File Revisions </label>
+                    <input type="text" name="all_vcs_filerevisions_routes" id="all_vcs_filerevisions_routes" class="form-control"
+                           value="vcs/filerevisions">
+
+                    <label for="all_vcsdates_routes">All Revision Dates </label>
+                    <input type="text" name="all_vcsdates_routes" id="all_vcsdates_routes" class="form-control"
+                           value="vcs/revisions/dates">
                 </div>
             </div>
+
+
         </div>
+
+        <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div>
+                                <button type="button" id="issueLoader" class="btn btn-primary">Load Issues</button>
+                            </div>
+                            <div>
+                                <button type="button" id="prsFromIssuesLoader" class="btn btn-default">Load PRS from Issues</button>
+                            </div>
+                            <div>
+                                <button type="button" id="commitsLoader" class="btn btn-default">Load Commits from PRS</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                            <div class="form-group">
+                            <div>
+                                <button type="button" id="vcsFileRevisionsLoader" class="btn btn-default">VCS File Revisions from Commits</button>
+                            </div>
+                            <div>
+                                <button type="button" id="vcsDatesRevisionLoader" class="btn btn-default">Load Dates from VCSFileRev</button>
+                            </div>
+                            <div>
+                                <button type="button" id="commitsFilesLoader" class="btn btn-default">Load files from Commits</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div>
+                                <button type="button" id="tester" class="btn btn-default">Tester</button>
+                            </div>
+                            <div>
+                                <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
+                            </div>
+                            <div>
+                                <button type="button" id="allModulesLoader" class="btn btn-info">Load all Modules</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div>
+                                <button type="button" id="allEstimationsLoader" class="btn btn-danger">Load all Estimations</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
     </div>
 </body>
 

@@ -19,6 +19,12 @@ $(document).ready(function() {
     var _files_changes_route = $('#files_route').val();
     var _all_commmits_route = $('#all_commits_route').val();
 
+    var all_modules_routes = $('#all_modules_route').val();
+    var all_estimations_route = $('#all_estimations_route').val();
+
+    var all_vcs_file_revisions_route = $('#all_vcs_filerevisions_routes').val();
+    var all_vcs_dates_rout = $('#all_vcsdates_routes').val();
+
     function next_page()  {
         return ($('#start_page').val() != 0) ?
         "&page="+$('#start_page').val() : "";
@@ -62,6 +68,11 @@ $(document).ready(function() {
         _commits_route = $('#prs_commit_route').val();
         _files_changes_route = $('#files_route').val();
         _all_commmits_route = $('#all_commits_route').val();
+
+        all_modules_routes = $('#all_modules_route').val();
+        all_estimations_route = $('#all_estimations_route').val();
+        all_vcs_file_revisions_route = $('#all_vcs_filerevisions_routes').val();
+        all_vcs_dates_rout = $('#all_vcsdates_routes').val();
     }
     $('#issueLoader').on('click', function () {
         setLabelsAndName();
@@ -91,6 +102,7 @@ $(document).ready(function() {
 
     $('#commitsFilesLoader').on('click', function () {
         setLabelsAndName();
+        setAllFields();
         var _i_url = base+_files_changes_route+'?project_name='+project_name;
         load_(_i_url);
     });
@@ -105,6 +117,34 @@ $(document).ready(function() {
             '&per_page=100'+next_page();
         loadIssuesLoader(theUrl);
 
+    });
+
+    $('#allModulesLoader').on('click', function () {
+        setLabelsAndName();
+        setAllFields();
+        var _i_url = base+all_modules_routes+'?project_name='+project_name;
+        load_(_i_url);
+    });
+
+    $('#allEstimationsLoader').on('click', function () {
+        setLabelsAndName();
+        setAllFields();
+        var _i_url = base+all_estimations_route+'?project_name='+project_name;
+        load_(_i_url);
+    });
+
+    $('#vcsFileRevisionsLoader').on('click', function () {
+        setLabelsAndName();
+        setAllFields();
+        var _i_url = base+all_vcs_file_revisions_route+'?project_name='+project_name;
+        load_(_i_url);
+    });
+
+    $('#vcsDatesRevisionLoader').on('click', function () {
+        setLabelsAndName();
+        setAllFields();
+        var _i_url = base+all_vcs_dates_rout+'?project_name='+project_name;
+        load_(_i_url);
     });
 
     function startTimer(duration, display) {
@@ -178,7 +218,7 @@ $(document).ready(function() {
                         $('#status_table').find('tbody').append(
                             "<tr> " +
                                 " <td> " +
-                                incr +
+                            (incr) +
                                 "</td>" +
                                 " <td> " +
                                 data.message +
@@ -215,6 +255,7 @@ $(document).ready(function() {
             success: function (data) {
                 if(data.status === 'success')
                 {
+                    incr++;
                     if(data.extra != 'covered' ){
 
                         $max_time = $('#time_to_wait').val()*1000;
