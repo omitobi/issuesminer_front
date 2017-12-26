@@ -136,6 +136,10 @@
                     <label for="all_vcsdates_routes">All Revision Dates </label>
                     <input type="text" name="all_vcsdates_routes" id="all_vcsdates_routes" class="form-control"
                            value="vcs/revisions/dates">
+
+                    <label for="commits_wo_email_routes">Commits Without Email </label>
+                    <input type="text" name="commits_wo_email_routes" id="commits_wo_email_routes" class="form-control"
+                           value="commits/reload">
                 </div>
             </div>
 
@@ -177,6 +181,9 @@
                             </div>
                             <div>
                                 <button type="button" id="allCommitsLoader" class="btn btn-primary">Load all commits</button>
+                            </div>
+                            <div>
+                                <button type="button" id="WithoutEmailCommitsReloader" class="btn btn-primary">Reload commits (without Email)</button>
                             </div>
                             <div>
                                 <button type="button" id="allModulesLoader" class="btn btn-info">Load all Modules</button>

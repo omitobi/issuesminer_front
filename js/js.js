@@ -22,6 +22,7 @@ $(document).ready(function() {
     var all_modules_routes = $('#all_modules_route').val();
     var all_estimations_route = $('#all_estimations_route').val();
 
+    var commits_wo_email_reload = $('#commits_wo_email_routes').val();
     var all_vcs_file_revisions_route = $('#all_vcs_filerevisions_routes').val();
     var all_vcs_dates_rout = $('#all_vcsdates_routes').val();
 
@@ -137,6 +138,13 @@ $(document).ready(function() {
         setLabelsAndName();
         setAllFields();
         var _i_url = base+all_vcs_file_revisions_route+'?project_name='+project_name;
+        load_(_i_url);
+    });
+
+    $('#WithoutEmailCommitsReloader').on('click', function () {
+        setLabelsAndName();
+        setAllFields();
+        var _i_url = base+commits_wo_email_reload+'?project_name='+project_name;
         load_(_i_url);
     });
 
